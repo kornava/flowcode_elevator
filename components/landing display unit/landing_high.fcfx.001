@@ -1,0 +1,257 @@
+<root>
+<document schema='101' license='0,39726362,BCPVQ6' title='landing high' description='' target='PIC16.24E.24EP128GP202' >
+	<config data='!0,ffef!10,ffff!20,ffff!30,ffff!40,ffff!50,ffff%0,3%4,0%5,1%14,1%15,1%16,3%20,f%24,1%25,1%26,1%27,1%30,3%32,1%35,1%36,3%40,7%47,1%50,1%51,1' clkspd='12000000' simspd='1' usewdt='0' constif='0' />
+	<plugins >
+		<dll_dbg_icd enabled='0' >
+			<data name='debug' value='1' />
+			<data name='userpins' value='0' />
+			<data name='speed' value='1000' />
+			<data name='usev9' value='0' />
+			<data name='breaks' value='8' />
+			<data name='stacks' value='8' />
+			<data name='clkport' value='1' />
+			<data name='clkbit' value='6' />
+			<data name='dataport' value='1' />
+			<data name='databit' value='7' />
+			<data name='ghostype' value='0' />
+			<data name='monitor' value='1' />
+			<data name='ictloop' value='1' />
+			<data name='ictrate' value='1000' />
+			<data name='ictmask' value='-1' />
+			<data name='anlpres' value='255' />
+			<data name='digmask1' value='-1' />
+			<data name='digmask2' value='-1' />
+		</dll_dbg_icd>
+		<dll_models enabled='1' />
+		<dll_upgrader enabled='1' />
+		<dll_webhelp enabled='1' />
+	</plugins>
+	<supplement use='0' head='' body='' />
+	<debug />
+	<components >
+		<settings autoimg='1' center='1' unitscale='0' fixedscale='0' fixedx='1' fixedy='1' fixedz='1' headcode='0' />
+		<definition guid='07eb78d4-858f-4b71-8689-52d413ae69c8' vstate='40' vmin='0' vmaj='1' srcleaf='' visiblename='' description='' category='Outputs' catenable='1' author='seif' manuname='' manucode='' sysinfo='0' keywords='' dynamic='0' iconpath='' />
+		<component class_type='root' codename='lan' x='0' y='0' z='0' xsz='1' ysz='1' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='0' poslock='0' macronames='$(type)_$(module)__$(macro)' >
+			<resources />
+			<properties />
+			<values />
+			<events />
+			<apis />
+			<variables >
+				<variable public='0' >
+					<def class_type='variable' name='floor_number' type='u8' description='' isconst='0' isinit='1' usrinit='0' setinit='0' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='false' type='b1' description='' isconst='1' isinit='1' usrinit='0' setinit='0' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='true' type='b1' description='' isconst='1' isinit='1' usrinit='1' setinit='1' />
+				</variable>
+			</variables>
+			<macros >
+				<macro >
+					<flowline name='display_draw' description='draw in the 7 segent display, takes the floor number as parameter' >
+						<param name='floor_number_local' type='u8' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<command class_type='comment' title='' comment='this switch case routine will convert each decimal value 
+of floor_number local variable to the apropriate
+ binary output to show the right number in the display' textarea='139,0,139,0' />
+						<command class_type='switch' title='Switch' textarea='36,25,36,25' exp='.floor_number_local' >
+							<case >
+								<flowline />
+							</case>
+							<case exp='1' >
+								<flowline >
+									<command class_type='calculation' title='Calculation' >
+										<exp exp='.floor_number_local = 0b00000110' />
+									</command>
+								</flowline>
+							</case>
+							<case exp='2' >
+								<flowline >
+									<command class_type='calculation' title='Calculation' >
+										<exp exp='.floor_number_local = 0b1011011' />
+									</command>
+								</flowline>
+							</case>
+							<case exp='3' >
+								<flowline >
+									<command class_type='calculation' title='Calculation' >
+										<exp exp='.floor_number_local = 0b1001111' />
+									</command>
+								</flowline>
+							</case>
+							<case exp='4' >
+								<flowline >
+									<command class_type='calculation' title='Calculation' >
+										<exp exp='.floor_number_local = 0b1100110' />
+									</command>
+								</flowline>
+							</case>
+							<case exp='5' >
+								<flowline >
+									<command class_type='calculation' title='Calculation' >
+										<exp exp='.floor_number_local = 0b1101101' />
+									</command>
+								</flowline>
+							</case>
+							<case exp='6' >
+								<flowline >
+									<command class_type='calculation' title='Calculation' >
+										<exp exp='.floor_number_local = 0b1111101' />
+									</command>
+								</flowline>
+							</case>
+							<case exp='7' >
+								<flowline >
+									<command class_type='calculation' title='Calculation' >
+										<exp exp='.floor_number_local = 0b0000111' />
+									</command>
+								</flowline>
+							</case>
+							<case exp='8' >
+								<flowline >
+									<command class_type='calculation' title='Calculation' >
+										<exp exp='.floor_number_local = 0b1111111' />
+									</command>
+								</flowline>
+							</case>
+							<case exp='9' >
+								<flowline >
+									<command class_type='calculation' title='Calculation' >
+										<exp exp='.floor_number_local = 0b1101111' />
+									</command>
+								</flowline>
+							</case>
+							<case exp='0' >
+								<flowline >
+									<command class_type='calculation' title='Calculation' >
+										<exp exp='.floor_number_local = 0b0111111' />
+									</command>
+								</flowline>
+							</case>
+						</command>
+						<command class_type='comment' title='' comment='now activate the 7segment display' textarea='12,0,12,0' />
+						<command class_type='output' title='Output' mode='1' port='1048576' mask='1' exp='0' />
+						<command class_type='comment' title='' comment='now print the binary value of floor_number_local to the PORTB' textarea='69,-39,69,-39' />
+						<command class_type='output' title='Output' ccode='// Output
+// Output: floor_number -&gt; PORTB_L
+FCP_SET(M, B, 0x00FF, 0, (FCV_FLOOR_NUMBER));' mode='0' port='1048577' mask='0' exp='.floor_number_local' />
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='Main' description='' >
+						<command class_type='loop' title='Loop' type='0' exp='1' >
+							<flowline >
+								<command class_type='loop' title='Loop' type='2' forvar='floor_number' exp='9' >
+									<flowline >
+										<command class_type='call' title='Call Macro' ccode='// Call Macro
+// Call Macro: display_draw(floor_number)
+FCM_display_draw(FCV_FLOOR_NUMBER);
+' macro='display_draw' >
+											<argument exp='floor_number' />
+										</command>
+										<command class_type='delay' title='Delay' exp='300' type='1' />
+									</flowline>
+								</command>
+							</flowline>
+						</command>
+					</flowline>
+				</macro>
+			</macros>
+			<component class_type='ref' guid='52c5383b-4f48-4029-8b75-c3633f7cf892' vmin='3' vmaj='1' codename='LED_7Seg1' x='0' y='0' z='0' xsz='12.6' ysz='19' zsz='8.25' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='0' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='display_type' data='001' />
+					<value target='ShowSegLabels' data='1' />
+					<value target='pin0' data='$PORTB.0' />
+					<value target='pin1' data='$PORTB.1' />
+					<value target='pin2' data='$PORTB.2' />
+					<value target='pin3' data='$PORTB.3' />
+					<value target='pin4' data='$PORTB.4' />
+					<value target='pin5' data='$PORTB.5' />
+					<value target='pin6' data='$PORTB.6' />
+					<value target='pin7' data='$PORTB.7' />
+					<value target='common_pin' data='$PORTA.0' />
+					<value target='FGColor' data='255' />
+					<value target='BGColor' data='1973790' />
+					<value target='LabelColor' data='16777215' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='ref' guid='7fdaec78-394e-4ec9-a578-4f1a12a12076' vmin='1' vmaj='1' codename='led_5mm_clip1' x='16' y='6' z='0' xsz='1' ysz='1' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='0' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='pin' data='' />
+					<value target='polarity' data='001' />
+					<value target='on_color' data='8453975' />
+					<value target='show_label' data='002' />
+					<value target='label_property' data='pin' />
+					<value target='label_color' data='16777215' />
+					<value target='label_scale' data='1.000000' />
+					<value target='label_auto_scale' data='0' />
+					<value target='label_position' data='003' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='ref' guid='7fdaec78-394e-4ec9-a578-4f1a12a12076' vmin='1' vmaj='1' codename='led_5mm_clip2' x='16' y='-6' z='0' xsz='1' ysz='1' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='0' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='pin' data='' />
+					<value target='polarity' data='001' />
+					<value target='on_color' data='8453975' />
+					<value target='show_label' data='002' />
+					<value target='label_property' data='pin' />
+					<value target='label_color' data='16777215' />
+					<value target='label_scale' data='1.000000' />
+					<value target='label_auto_scale' data='0' />
+					<value target='label_position' data='003' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='shape' codename='back' x='6' y='0' z='-2' xsz='32' ysz='27' zsz='5' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='0' layer='0' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='Shape' data='0' />
+					<value target='Color' data='8882055' />
+					<value target='Outline' data='0' />
+					<value target='Thickness' data='0' />
+					<value target='Image' data='' />
+					<value target='Model' data='' />
+					<value target='Unit' data='' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+		</component>
+	</components>
+	<keymap />
+	<panel2d shadows='0' lighting='2' brightness='0' perspective='0' >
+		<background rgb='9737364' img='' style='0' />
+		<camera xe='0' ye='0' ze='300' xt='0' yt='0' zt='0' xquat='0' yquat='0' zquat='0' wquat='1' />
+	</panel2d>
+	<panel3d shadows='0' lighting='2' brightness='0' perspective='0' >
+		<background rgb='8409120' img='' style='0' />
+		<table rgb='7884836' img='' style='0' size='26' />
+		<camera xe='6.36521' ye='-16.0122' ze='40.5568' xt='6.49426' yt='-1.61495' zt='-0.545294' xquat='-0.167671' yquat='0.000751432' zquat='0.0044181' wquat='0.985833' />
+	</panel3d>
+	<layout >
+		<view type='0' name='display_draw' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAPgMAAEMCAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='Main' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAPgMAAEMCAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+	</layout>
+</document>
+</root>

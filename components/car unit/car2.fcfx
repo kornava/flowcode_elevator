@@ -1,0 +1,454 @@
+<root>
+<document schema='101' license='0,39726362,BCPVQ6' title='car unit' description='' target='SIMULATION.SIM.SIM' >
+	<config data='' clkspd='100000000' simspd='1' usewdt='0' constif='0' />
+	<plugins >
+		<dll_dbg_icd enabled='0' >
+			<data name='debug' value='1' />
+			<data name='userpins' value='0' />
+			<data name='speed' value='1000' />
+			<data name='usev9' value='0' />
+			<data name='breaks' value='8' />
+			<data name='stacks' value='8' />
+			<data name='clkport' value='1' />
+			<data name='clkbit' value='6' />
+			<data name='dataport' value='1' />
+			<data name='databit' value='7' />
+			<data name='ghostype' value='0' />
+			<data name='monitor' value='1' />
+			<data name='ictloop' value='1' />
+			<data name='ictrate' value='1000' />
+			<data name='ictmask' value='-1' />
+			<data name='anlpres' value='255' />
+			<data name='digmask1' value='-1' />
+			<data name='digmask2' value='-1' />
+		</dll_dbg_icd>
+		<dll_models enabled='1' />
+		<dll_upgrader enabled='1' />
+		<dll_webhelp enabled='1' />
+	</plugins>
+	<supplement use='1' head='' body='' />
+	<debug />
+	<components >
+		<settings autoimg='1' center='1' unitscale='0' fixedscale='0' fixedx='1' fixedy='1' fixedz='1' headcode='1' />
+		<definition guid='07eb78d4-858f-4b71-8689-52d413ae69c9' vstate='40' vmin='0' vmaj='1' srcleaf='' visiblename='car unit (elevator)' description='' category='Misc' catenable='1' author='Seifelhak Awainia' manuname='' manucode='' sysinfo='0' keywords='' dynamic='0' iconpath='' />
+		<component class_type='root' codename='car_unit' x='0' y='0' z='0' xsz='1' ysz='1' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='0' poslock='0' macronames='$(type)_$(module)__$(macro)' >
+			<resources />
+			<properties />
+			<values />
+			<events />
+			<apis >
+				<api name='car_unit__display' alt='car_unit__display' type='1' proto='1' />
+				<api name='car_unit_call' alt='car_unit_call' type='1' proto='1' />
+			</apis>
+			<variables >
+				<variable public='0' >
+					<def class_type='variable' name='floor_number' type='u8' description='' isconst='0' isinit='1' usrinit='0' setinit='0' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='false' type='b1' description='' isconst='1' isinit='1' usrinit='0' setinit='0' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='switch' type='u8' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='call' type='u8' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='car_present' type='b1' description='' isconst='0' isinit='1' usrinit='0' setinit='false' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='true' type='b1' description='' isconst='1' isinit='1' usrinit='1' setinit='1' />
+				</variable>
+			</variables>
+			<macros >
+				<macro >
+					<flowline name='car_unit__display' description='' >
+						<param name='floor_number' type='u8' description='indicate the position of the elevator' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<param name='idle' type='b1' description='indicate if the elevator is in the idle state or not (stoped and no present call)' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<param name='direction' type='b1' description='indicate the last direction of the elevator' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<command class_type='decision' title='Decision' exp='.floor_number = 255' swap='0' >
+							<flowline >
+								<command class_type='call' title='Call Component Macro' component='LED_7Seg1' macro='ClearDigit' />
+							</flowline>
+							<flowline >
+								<command class_type='call' title='Call Component Macro' component='LED_7Seg1' macro='ShowDigit' >
+									<argument exp='.floor_number' />
+									<argument exp='false' />
+								</command>
+							</flowline>
+						</command>
+						<command class_type='comment' title='' comment='the 255 number test is used in case of problems
+to have the possibility to shut down the display' textarea='12,0,12,0' />
+						<command class_type='decision' title='Decision' exp='.idle = false' swap='0' >
+							<flowline >
+								<command class_type='decision' title='Decision' exp='.direction = true' swap='0' >
+									<flowline >
+										<command class_type='comment' title='' comment='up' textarea='12,0,12,0' />
+										<command class_type='call' title='Call Component Macro' component='led_5mm_clip2' macro='TurnOff' />
+										<command class_type='call' title='Call Component Macro' component='led_5mm_clip1' macro='TurnOn' />
+										<command class_type='delay' title='Delay' exp='220' type='1' />
+										<command class_type='call' title='Call Component Macro' component='led_5mm_clip1' macro='TurnOff' />
+									</flowline>
+									<flowline >
+										<command class_type='decision' title='Decision' exp='.direction = false' swap='0' >
+											<flowline >
+												<command class_type='comment' title='' comment='down' textarea='109,23,109,23' />
+												<command class_type='call' title='Call Component Macro' component='led_5mm_clip1' macro='TurnOff' />
+												<command class_type='comment' title='' comment='turn the other led off' textarea='12,0,12,0' />
+												<command class_type='call' title='Call Component Macro' component='led_5mm_clip2' macro='TurnOn' />
+												<command class_type='delay' title='Delay' exp='220' type='1' />
+												<command class_type='call' title='Call Component Macro' component='led_5mm_clip2' macro='TurnOff' />
+												<command class_type='comment' title='' comment='blink' textarea='12,0,12,0' />
+											</flowline>
+											<flowline />
+										</command>
+									</flowline>
+								</command>
+							</flowline>
+							<flowline >
+								<command class_type='decision' title='Decision' exp='.idle = true' swap='0' >
+									<flowline >
+										<command class_type='call' title='Call Component Macro' component='led_5mm_clip1' macro='TurnOff' />
+										<command class_type='call' title='Call Component Macro' component='led_5mm_clip2' macro='TurnOff' />
+										<command class_type='comment' title='' comment='If the elvator is in an idle state (stoped
+in any floor, and there is no present call)
+then the leds are turned off' textarea='12,0,12,0' />
+									</flowline>
+									<flowline />
+								</command>
+							</flowline>
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='car_unit_call' description='' >
+						<return name='Return' type='u8' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<param name='reste' type='b1' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<local name='switch_array' type='u8' description='switch_array' isconst='0' isinit='1' usrinit='255' setinit='255' />
+						<local name='call' type='u8' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<local name='call_nexet' type='u8' description='' isconst='0' isinit='0' usrinit='&quot;&quot;' setinit='' >
+							<array size='2' />
+						</local>
+						<local name='call_next' type='u8' description='' isconst='0' isinit='1' usrinit='255' setinit='255' />
+						<command class_type='decision' title='Decision' exp='.reste' swap='0' >
+							<flowline >
+								<command class_type='call' title='Call Component Macro' component='led_array_pcb1' macro='AllOff' />
+							</flowline>
+							<flowline >
+								<command class_type='call' title='Call Component Macro' component='switch_array_push1' macro='ReadAll' >
+									<return exp='.switch_array' />
+								</command>
+								<command class_type='switch' title='Switch' textarea='36,25,36,25' exp='.switch_array' >
+									<case >
+										<flowline />
+									</case>
+									<case exp='8' >
+										<flowline >
+											<command class_type='calculation' title='Calculation' >
+												<exp exp='.call = 3' />
+											</command>
+											<command class_type='call' title='Call Component Macro' component='led_array_pcb1' macro='LEDOn' >
+												<argument exp='0' />
+											</command>
+										</flowline>
+									</case>
+									<case exp='4' >
+										<flowline >
+											<command class_type='calculation' title='Calculation' >
+												<exp exp='.call = 2' />
+											</command>
+											<command class_type='call' title='Call Component Macro' component='led_array_pcb1' macro='LEDOn' >
+												<argument exp='1' />
+											</command>
+										</flowline>
+									</case>
+									<case exp='2' >
+										<flowline >
+											<command class_type='calculation' title='Calculation' >
+												<exp exp='.call = 1' />
+											</command>
+											<command class_type='call' title='Call Component Macro' textarea='81,-30,81,-30' component='led_array_pcb1' macro='LEDOn' >
+												<argument exp='2' />
+											</command>
+										</flowline>
+									</case>
+									<case exp='1' >
+										<flowline >
+											<command class_type='calculation' title='Calculation' >
+												<exp exp='.call = 5' />
+											</command>
+											<command class_type='call' title='Call Component Macro' component='led_array_pcb1' macro='LEDOn' >
+												<argument exp='3' />
+											</command>
+										</flowline>
+									</case>
+								</command>
+								<command class_type='calculation' title='Calculation' >
+									<exp exp='.Return = .call' />
+								</command>
+							</flowline>
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='Main' description='' >
+						<command class_type='loop' title='Loop' type='0' exp='1' >
+							<flowline >
+								<command class_type='call' title='Call Macro' macro='car_unit_call' >
+									<return exp='call' />
+									<argument exp='false' />
+								</command>
+								<command class_type='call' title='Call Component Macro' component='LED_7Seg1' macro='ShowDigit' >
+									<argument exp='call' />
+									<argument exp='0' />
+								</command>
+							</flowline>
+						</command>
+					</flowline>
+				</macro>
+			</macros>
+			<component class_type='ref' guid='52c5383b-4f48-4029-8b75-c3633f7cf892' vmin='3' vmaj='1' codename='LED_7Seg1' x='0' y='24' z='2.13607' xsz='12.6' ysz='19' zsz='8.25' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='0' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='display_type' data='001' />
+					<value target='ShowSegLabels' data='1' />
+					<value target='pin0' data='$PORTB.0' />
+					<value target='pin1' data='$PORTB.1' />
+					<value target='pin2' data='$PORTB.2' />
+					<value target='pin3' data='$PORTB.3' />
+					<value target='pin4' data='$PORTB.4' />
+					<value target='pin5' data='$PORTB.5' />
+					<value target='pin6' data='$PORTB.6' />
+					<value target='pin7' data='$PORTB.7' />
+					<value target='common_pin' data='$PORTA.0' />
+					<value target='FGColor' data='255' />
+					<value target='BGColor' data='8882055' />
+					<value target='LabelColor' data='16777215' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='ref' guid='7fdaec78-394e-4ec9-a578-4f1a12a12076' vmin='1' vmaj='1' codename='led_5mm_clip1' x='3' y='40.7' z='-1' xsz='1' ysz='1' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='0' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='pin' data='$PORTE.0' />
+					<value target='polarity' data='001' />
+					<value target='on_color' data='16777215' />
+					<value target='show_label' data='000' />
+					<value target='label_property' data='pin' />
+					<value target='label_color' data='16777215' />
+					<value target='label_scale' data='1.000000' />
+					<value target='label_auto_scale' data='0' />
+					<value target='label_position' data='003' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='ref' guid='7fdaec78-394e-4ec9-a578-4f1a12a12076' vmin='1' vmaj='1' codename='led_5mm_clip2' x='-3' y='43.3' z='-1' xsz='1' ysz='1' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='0' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='pin' data='$PORTE.1' />
+					<value target='polarity' data='001' />
+					<value target='on_color' data='16777215' />
+					<value target='show_label' data='000' />
+					<value target='label_property' data='pin' />
+					<value target='label_color' data='16777215' />
+					<value target='label_scale' data='1.000000' />
+					<value target='label_auto_scale' data='0' />
+					<value target='label_position' data='003' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='shape' codename='back' x='0' y='-2' z='2' xsz='31' ysz='105' zsz='5' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='0' layer='0' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='Shape' data='  0' />
+					<value target='Color' data='8882055' />
+					<value target='Outline' data='0' />
+					<value target='Thickness' data='0.200000' />
+					<value target='Image' data='' />
+					<value target='Model' data='' />
+					<value target='Unit' data='' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='shape' codename='shape1' x='3' y='42' z='3' xsz='9' ysz='9' zsz='4' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='0' layer='0' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='Shape' data='9' />
+					<value target='Color' data='76' />
+					<value target='Outline' data='0' />
+					<value target='Thickness' data='0' />
+					<value target='Image' data='' />
+					<value target='Model' data='' />
+					<value target='Unit' data='' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='shape' codename='shape2' x='-3' y='42' z='3.23694' xsz='9' ysz='9' zsz='4' xang='0' yang='0' zang='180' xquat='0' yquat='0' zquat='1' wquat='6.12323e-017' visible='1' interactive='1' solid='0' layer='0' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='Shape' data='9' />
+					<value target='Color' data='69' />
+					<value target='Outline' data='0' />
+					<value target='Thickness' data='0' />
+					<value target='Image' data='' />
+					<value target='Model' data='' />
+					<value target='Unit' data='' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='text' codename='label1' x='-5.8' y='-43' z='11.5' xsz='8' ysz='8' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='0' solid='0' layer='0' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='Color' data='69' />
+					<value target='Background' data='-1' />
+					<value target='Font' data='Arial' />
+					<value target='Text' data='0' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='text' codename='label2' x='-5.8' y='-17' z='11.5' xsz='8' ysz='8' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='0' solid='0' layer='0' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='Color' data='69' />
+					<value target='Background' data='-1' />
+					<value target='Font' data='Arial' />
+					<value target='Text' data='2' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='text' codename='label4' x='-5.8' y='-30' z='11.5' xsz='8' ysz='8' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='0' solid='0' layer='0' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='Color' data='69' />
+					<value target='Background' data='-1' />
+					<value target='Font' data='Arial' />
+					<value target='Text' data='1' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='text' codename='label5' x='-5.8' y='-4' z='11.5' xsz='8' ysz='8' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='0' solid='0' layer='0' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='Color' data='69' />
+					<value target='Background' data='-1' />
+					<value target='Font' data='Arial' />
+					<value target='Text' data='3' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='ref' guid='208101fb-f735-4e83-980b-c1d2b4be28ff' vmin='0' vmaj='1' codename='switch_array_push1' x='-6' y='-24' z='5' xsz='1' ysz='1' zsz='1' xang='0' yang='0' zang='90' xquat='0' yquat='0' zquat='0.707107' wquat='0.707107' visible='1' interactive='1' solid='1' layer='0' poslock='1' >
+				<resources />
+				<properties />
+				<values >
+					<value target='count' data='4' />
+					<value target='port' data='003' />
+					<value target='pin0' data='$PORTD.0' />
+					<value target='pin1' data='$PORTD.1' />
+					<value target='pin2' data='$PORTD.2' />
+					<value target='pin3' data='$PORTD.3' />
+					<value target='pin4' data='$PORTA.4' />
+					<value target='pin5' data='$PORTA.5' />
+					<value target='pin6' data='$PORTA.6' />
+					<value target='pin7' data='$PORTA.7' />
+					<value target='debounce' data='10' />
+					<value target='polarity' data='000' />
+					<value target='align' data='000' />
+					<value target='spacing' data='13.000000' />
+					<value target='reverse' data='1' />
+					<value target='show_labels' data='000' />
+					<value target='label_color' data='16777215' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='ref' guid='63177601-e8e2-4330-89d3-a4c5a7e228f5' vmin='1' vmaj='1' codename='led_array_pcb1' x='8' y='-24' z='21.275' xsz='1' ysz='1' zsz='1' xang='0' yang='0' zang='90' xquat='0' yquat='0' zquat='0.707107' wquat='0.707107' visible='1' interactive='1' solid='1' layer='0' poslock='1' >
+				<resources />
+				<properties />
+				<values >
+					<value target='count' data='4' />
+					<value target='polarity' data='001' />
+					<value target='port' data='002' />
+					<value target='pin0' data='$PORTC.0' />
+					<value target='pin1' data='$PORTC.1' />
+					<value target='pin2' data='$PORTC.2' />
+					<value target='pin3' data='$PORTC.3' />
+					<value target='pin4' data='$PORTA.4' />
+					<value target='pin5' data='$PORTA.5' />
+					<value target='pin6' data='$PORTA.6' />
+					<value target='pin7' data='$PORTA.7' />
+					<value target='full_port' data='$PORTC' />
+					<value target='align' data='000' />
+					<value target='spacing' data='13.200000' />
+					<value target='reverse' data='0' />
+					<value target='show_labels' data='004' />
+					<value target='color_led0' data='16777215' />
+					<value target='label_color' data='9737364' />
+					<value target='bitmask' data='255' />
+					<value target='inv_bitmask' data='-256' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+		</component>
+	</components>
+	<keymap />
+	<panel2d shadows='0' lighting='2' brightness='0' perspective='0' >
+		<background rgb='9737364' img='' style='0' />
+		<camera xe='0' ye='0' ze='300' xt='0' yt='0' zt='0' xquat='0' yquat='0' zquat='0' wquat='1' />
+	</panel2d>
+	<panel3d shadows='0' lighting='2' brightness='0' perspective='0' >
+		<background rgb='8409120' img='' style='0' />
+		<table rgb='7884836' img='' style='0' size='26' />
+		<camera xe='6' ye='-5.20707e-015' ze='136.309' xt='6' yt='-5.20707e-015' zt='1.11022e-016' xquat='0' yquat='0' zquat='0' wquat='1' />
+	</panel3d>
+	<layout >
+		<view type='0' name='car_unit_call' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAACAMAAL8BAAA' zoom='50' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='Main' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAACAMAAL8BAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='car_unit__display' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAACAMAAL8BAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+	</layout>
+</document>
+</root>

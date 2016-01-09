@@ -1,0 +1,457 @@
+<root>
+<document schema='101' license='0,39726362,BCPVQ6' title='landing high' description='' target='PIC.16F.16F877A' >
+	<config data='!0,3f72%0,2%2,0%3,0%6,1%7,0%9,3%b,1%8,1%d,1' clkspd='19660800' simspd='1' usewdt='0' constif='0' />
+	<plugins >
+		<dll_dbg_icd enabled='0' >
+			<data name='debug' value='1' />
+			<data name='userpins' value='0' />
+			<data name='speed' value='1000' />
+			<data name='usev9' value='0' />
+			<data name='breaks' value='8' />
+			<data name='stacks' value='8' />
+			<data name='clkport' value='1' />
+			<data name='clkbit' value='6' />
+			<data name='dataport' value='1' />
+			<data name='databit' value='7' />
+			<data name='ghostype' value='0' />
+			<data name='monitor' value='1' />
+			<data name='ictloop' value='1' />
+			<data name='ictrate' value='1000' />
+			<data name='ictmask' value='-1' />
+			<data name='anlpres' value='255' />
+			<data name='digmask1' value='-1' />
+			<data name='digmask2' value='-1' />
+		</dll_dbg_icd>
+		<dll_models enabled='1' />
+		<dll_upgrader enabled='1' />
+		<dll_webhelp enabled='1' />
+	</plugins>
+	<supplement use='1' head='' body='' />
+	<debug />
+	<components >
+		<settings autoimg='1' center='1' unitscale='0' fixedscale='0' fixedx='1' fixedy='1' fixedz='1' headcode='1' />
+		<definition guid='07eb78d4-858f-4b71-8689-52d413ae69c8' vstate='40' vmin='0' vmaj='1' srcleaf='' visiblename='landing display (elevator)' description='' category='Outputs' catenable='1' author='Seifelhak Awainia' manuname='' manucode='' sysinfo='0' keywords='' dynamic='0' iconpath='' />
+		<component class_type='root' codename='landing_display' x='0' y='0' z='0' xsz='1' ysz='1' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='0' poslock='0' macronames='$(type)_$(module)__$(macro)' >
+			<resources />
+			<properties >
+				<property name='7seg display' folder='property_1' hidden='0' >
+					<property name='Show Seg Labels' target='ShowSegLabels' typeid='7' hidden='0' locked='0' info='Show the identifier lables of the segments overlayed over the component.' />
+					<property name='Display Type' target='display_type' typeid='16' hidden='0' locked='0' info='Set this property to match your hardware device.
+Common Anode: Pin true -&gt; LED off,  Pin false -&gt; LED on
+Common Cathods:  Pin true -&gt; LED on,  Pin false -&gt; LED off' filter='000Anode
+001Cathode' />
+					<property name='Connections' hidden='0' >
+						<property name='pin0 (A)' target='pin0' typeid='5' hidden='0' locked='0' info='Pin connected to the &apos;A&apos; degment of the display.' />
+						<property name='pin1 (B)' target='pin1' typeid='5' hidden='0' locked='0' info='Pin connected to the &apos;B&apos; degment of the display.' />
+						<property name='pin2 (C)' target='pin2' typeid='5' hidden='0' locked='0' info='Pin connected to the &apos;C&apos; degment of the display.' />
+						<property name='pin3 (D)' target='pin3' typeid='5' hidden='0' locked='0' info='Pin connected to the &apos;D&apos; degment of the display.' />
+						<property name='pin4 (E)' target='pin4' typeid='5' hidden='0' locked='0' info='Pin connected to the &apos;E&apos; degment of the display.' />
+						<property name='pin5  (F)' target='pin5' typeid='5' hidden='0' locked='0' info='Pin connected to the &apos;F&apos; degment of the display.' />
+						<property name='pin6 (G)' target='pin6' typeid='5' hidden='0' locked='0' info='Pin connected to the &apos;G&apos; degment of the display.' />
+						<property name='pin7 (DP)' target='pin7' typeid='5' hidden='0' locked='0' info='Pin connected to the decimal pointt of the display.' />
+						<property name='common' target='common_pin' typeid='5' hidden='0' locked='0' info='Pin connection to the &apos;common&apos; pin of the display - to allow enable/disable of the whole display.' />
+					</property>
+					<property name='Colors' hidden='0' >
+						<property name='LED Color' target='FGColor' typeid='1' hidden='0' locked='0' info='Color when an LED is turned on.  When turned off, will use a much darker shade of the same hue.' />
+						<property name='Bezel Color' target='BGColor' typeid='1' hidden='0' locked='0' info='Color of the plastic package housing the LEDs' />
+						<property name='Label Color' target='LabelColor' typeid='1' hidden='0' locked='0' info='Color of the optional segment name labels.' />
+					</property>
+				</property>
+				<property name='Up Led' folder='property_2' hidden='0' >
+					<property name='Connections' hidden='0' >
+						<property name='Connection' target='pin' typeid='5' hidden='0' locked='0' info='The pin to which the LED is connected.' />
+						<property name='Polarity' target='polarity' typeid='16' hidden='0' locked='0' info='Active High:  Pin true -&gt; On color,  Pin false -&gt; Off color
+Active Low:  Pin true -&gt; Off color, Pin false -&gt; On color.' filter='001Active_high
+000Active_low' />
+					</property>
+					<property name='Simulation' hidden='0' >
+						<property name='Color' target='on_color' typeid='1' hidden='0' locked='0' info='LED color when it is turned on.  When turned off, it will use a darker shade of the same hue.' />
+					</property>
+					<property name='Label' folder='property_4' hidden='0' >
+						<property name='Show' target='show_label' typeid='16' hidden='0' locked='0' info='Decide what labels to show...
+None - no labels are displayed
+Name - shows each component&apos;s name
+Property - shows a particular property of each component (see &apos;property&apos; below.' filter='000None
+001Name
+002Property' />
+						<property name='Property' target='label_property' typeid='10' hidden='0' locked='0' info='Show a particular property of each object.  If a port or pin property is chosen, the label can be abbreviated
+to remove the &apos;$PORT&apos; text.' />
+						<property name='Color' target='label_color' typeid='1' hidden='0' locked='0' info='Color of the labels text.' />
+						<property name='Scale' target='label_scale' typeid='15' hidden='0' locked='0' info='Sets the basic size (text height) of the labels.' />
+						<property name='Position' target='label_position' typeid='16' hidden='0' locked='0' info='Position of the label relative to the component' filter='001Right
+002Left
+003Above
+004Below
+005On top
+006Underneath' />
+						<property name='Follow Zoom' target='label_auto_scale' typeid='7' hidden='0' locked='0' info='Whether labels get bigger and smaller when the panel is zoomed in and out.' />
+					</property>
+				</property>
+				<property name='Down Led' folder='property_3' hidden='0' >
+					<property name='Connections' hidden='0' >
+						<property name='Connection' target='pin_1' typeid='5' hidden='0' locked='0' info='The pin to which the LED is connected.' />
+						<property name='Polarity' target='polarity_1' typeid='16' hidden='0' locked='0' info='Active High:  Pin true -&gt; On color,  Pin false -&gt; Off color
+Active Low:  Pin true -&gt; Off color, Pin false -&gt; On color.' filter='001Active_high
+000Active_low' />
+					</property>
+					<property name='Simulation' hidden='0' >
+						<property name='Color' target='on_color_1' typeid='1' hidden='0' locked='0' info='LED color when it is turned on.  When turned off, it will use a darker shade of the same hue.' />
+					</property>
+					<property name='Label' folder='property_4_1' hidden='0' >
+						<property name='Show' target='show_label_1' typeid='16' hidden='0' locked='0' info='Decide what labels to show...
+None - no labels are displayed
+Name - shows each component&apos;s name
+Property - shows a particular property of each component (see &apos;property&apos; below.' filter='000None
+001Name
+002Property' />
+						<property name='Property' target='label_property_1' typeid='10' hidden='0' locked='0' info='Show a particular property of each object.  If a port or pin property is chosen, the label can be abbreviated
+to remove the &apos;$PORT&apos; text.' />
+						<property name='Color' target='label_color_1' typeid='1' hidden='0' locked='0' info='Color of the labels text.' />
+						<property name='Scale' target='label_scale_1' typeid='15' hidden='0' locked='0' info='Sets the basic size (text height) of the labels.' />
+						<property name='Follow Zoom' target='label_auto_scale_1' typeid='7' hidden='0' locked='0' info='Whether labels get bigger and smaller when the panel is zoomed in and out.' />
+						<property name='Position' target='label_position_1' typeid='16' hidden='0' locked='0' info='Position of the label relative to the component' filter='001Right
+002Left
+003Above
+004Below
+005On top
+006Underneath' />
+					</property>
+				</property>
+			</properties>
+			<values >
+				<value target='ShowSegLabels' data='1' />
+				<value target='display_type' data='001' />
+				<value target='pin0' data='$PORTB.0' />
+				<value target='pin1' data='$PORTB.1' />
+				<value target='pin2' data='$PORTB.2' />
+				<value target='pin3' data='$PORTB.3' />
+				<value target='pin4' data='$PORTB.4' />
+				<value target='pin5' data='$PORTB.5' />
+				<value target='pin6' data='$PORTB.6' />
+				<value target='pin7' data='$PORTB.7' />
+				<value target='common_pin' data='$PORTA.0' />
+				<value target='FGColor' data='255' />
+				<value target='BGColor' data='1973790' />
+				<value target='LabelColor' data='16777215' />
+				<value target='pin' data='$PORTE.0' />
+				<value target='polarity' data='001' />
+				<value target='on_color' data='8453975' />
+				<value target='show_label' data='000' />
+				<value target='label_property' data='pin' />
+				<value target='label_color' data='16777215' />
+				<value target='label_scale' data='1.000000' />
+				<value target='label_position' data='003' />
+				<value target='label_auto_scale' data='0' />
+				<value target='pin_1' data='$PORTE.1' />
+				<value target='polarity_1' data='001' />
+				<value target='on_color_1' data='8453975' />
+				<value target='show_label_1' data='000' />
+				<value target='label_property_1' data='pin' />
+				<value target='label_color_1' data='16777215' />
+				<value target='label_scale_1' data='1.000000' />
+				<value target='label_auto_scale_1' data='0' />
+				<value target='label_position_1' data='003' />
+			</values>
+			<events />
+			<apis >
+				<api name='landing_display' alt='landing_display' type='1' proto='1' />
+			</apis>
+			<variables >
+				<variable public='0' >
+					<def class_type='variable' name='floor_number' type='u8' description='' isconst='0' isinit='1' usrinit='0' setinit='0' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='false' type='b1' description='' isconst='1' isinit='1' usrinit='0' setinit='0' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='true' type='b1' description='' isconst='1' isinit='1' usrinit='1' setinit='1' />
+				</variable>
+			</variables>
+			<macros >
+				<macro >
+					<flowline name='landing_display' description='' >
+						<param name='floor_number' type='u8' description='indicate the position of the elevator' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<param name='idle' type='b1' description='indicate if the elevator is in the idle state or not (stoped and no present call)' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<param name='direction' type='b1' description='indicate the last direction of the elevator' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<command class_type='decision' title='Decision' exp='.floor_number = 255' swap='0' >
+							<flowline >
+								<command class_type='call' title='Call Component Macro' component='LED_7Seg1' macro='ClearDigit' />
+							</flowline>
+							<flowline >
+								<command class_type='call' title='Call Component Macro' component='LED_7Seg1' macro='ShowDigit' >
+									<argument exp='.floor_number' />
+									<argument exp='false' />
+								</command>
+							</flowline>
+						</command>
+						<command class_type='comment' title='' comment='the 255 number test is used in case of problems
+to have the possibility to shut down the display' textarea='12,0,12,0' />
+						<command class_type='decision' title='Decision' exp='.idle = false' swap='0' >
+							<flowline >
+								<command class_type='decision' title='Decision' exp='.direction = true' swap='0' >
+									<flowline >
+										<command class_type='comment' title='' comment='up' textarea='12,0,12,0' />
+										<command class_type='call' title='Call Component Macro' component='led_5mm_clip2' macro='TurnOff' />
+										<command class_type='call' title='Call Component Macro' component='led_5mm_clip1' macro='TurnOn' />
+										<command class_type='delay' title='Delay' exp='220' type='1' />
+										<command class_type='call' title='Call Component Macro' component='led_5mm_clip1' macro='TurnOff' />
+									</flowline>
+									<flowline >
+										<command class_type='decision' title='Decision' exp='.direction = false' swap='0' >
+											<flowline >
+												<command class_type='comment' title='' comment='down' textarea='109,23,109,23' />
+												<command class_type='call' title='Call Component Macro' component='led_5mm_clip1' macro='TurnOff' />
+												<command class_type='comment' title='' comment='turn the other led off' textarea='12,0,12,0' />
+												<command class_type='call' title='Call Component Macro' component='led_5mm_clip2' macro='TurnOn' />
+												<command class_type='delay' title='Delay' exp='220' type='1' />
+												<command class_type='call' title='Call Component Macro' component='led_5mm_clip2' macro='TurnOff' />
+												<command class_type='comment' title='' comment='blink' textarea='12,0,12,0' />
+											</flowline>
+											<flowline />
+										</command>
+									</flowline>
+								</command>
+							</flowline>
+							<flowline >
+								<command class_type='decision' title='Decision' exp='.idle = true' swap='0' >
+									<flowline >
+										<command class_type='call' title='Call Component Macro' component='led_5mm_clip1' macro='TurnOff' />
+										<command class_type='call' title='Call Component Macro' component='led_5mm_clip2' macro='TurnOff' />
+										<command class_type='comment' title='' comment='If the elvator is in an idle state (stoped
+in any floor, and there is no present call)
+then the leds are turned off' textarea='12,0,12,0' />
+									</flowline>
+									<flowline />
+								</command>
+							</flowline>
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='display_draw' description='draw in the 7 segent display, takes the floor number as parameter' >
+						<param name='floor_number_local' type='u8' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<command class_type='comment' title='' comment='this switch case routine will convert each decimal value 
+of floor_number local variable to the apropriate
+ binary output to show the right number in the display' textarea='139,0,139,0' />
+						<command class_type='switch' title='Switch' textarea='36,25,36,25' exp='.floor_number_local' >
+							<case >
+								<flowline >
+									<command class_type='calculation' title='Calculation' >
+										<exp exp='.floor_number_local = 0b1000000' />
+									</command>
+								</flowline>
+							</case>
+							<case exp='1' >
+								<flowline >
+									<command class_type='calculation' title='Calculation' >
+										<exp exp='.floor_number_local = 0b00000110' />
+									</command>
+								</flowline>
+							</case>
+							<case exp='2' >
+								<flowline >
+									<command class_type='calculation' title='Calculation' >
+										<exp exp='.floor_number_local = 0b1011011' />
+									</command>
+								</flowline>
+							</case>
+							<case exp='3' >
+								<flowline >
+									<command class_type='calculation' title='Calculation' >
+										<exp exp='.floor_number_local = 0b1001111' />
+									</command>
+								</flowline>
+							</case>
+							<case exp='4' >
+								<flowline >
+									<command class_type='calculation' title='Calculation' >
+										<exp exp='.floor_number_local = 0b1100110' />
+									</command>
+								</flowline>
+							</case>
+							<case exp='5' >
+								<flowline >
+									<command class_type='calculation' title='Calculation' >
+										<exp exp='.floor_number_local = 0b1101101' />
+									</command>
+								</flowline>
+							</case>
+							<case exp='6' >
+								<flowline >
+									<command class_type='calculation' title='Calculation' >
+										<exp exp='.floor_number_local = 0b1111101' />
+									</command>
+								</flowline>
+							</case>
+							<case exp='7' >
+								<flowline >
+									<command class_type='calculation' title='Calculation' >
+										<exp exp='.floor_number_local = 0b0000111' />
+									</command>
+								</flowline>
+							</case>
+							<case exp='8' >
+								<flowline >
+									<command class_type='calculation' title='Calculation' >
+										<exp exp='.floor_number_local = 0b1111111' />
+									</command>
+								</flowline>
+							</case>
+							<case exp='9' >
+								<flowline >
+									<command class_type='calculation' title='Calculation' >
+										<exp exp='.floor_number_local = 0b1101111' />
+									</command>
+								</flowline>
+							</case>
+							<case exp='0' >
+								<flowline >
+									<command class_type='calculation' title='Calculation' >
+										<exp exp='.floor_number_local = 0b0111111' />
+									</command>
+								</flowline>
+							</case>
+						</command>
+						<command class_type='comment' title='' comment='now activate the 7segment display' textarea='12,0,12,0' />
+						<command class_type='output' title='Output' mode='1' port='1048576' mask='1' exp='0' />
+						<command class_type='comment' title='' comment='now print the binary value of floor_number_local to the PORTB' textarea='69,-39,69,-39' />
+						<command class_type='output' title='Output' ccode='// Output
+// Output: floor_number -&gt; PORTB_L
+FCP_SET(M, B, 0x00FF, 0, (FCV_FLOOR_NUMBER));' mode='0' port='1048577' mask='0' exp='.floor_number_local' />
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='Main' description='' />
+				</macro>
+			</macros>
+			<component class_type='ref' guid='52c5383b-4f48-4029-8b75-c3633f7cf892' vmin='3' vmaj='1' codename='LED_7Seg1' x='-8' y='0' z='2' xsz='12.6' ysz='19' zsz='8.25' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='0' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='display_type' data='001' />
+					<value target='ShowSegLabels' data='1' />
+					<value target='pin0' data='$PORTB.0' />
+					<value target='pin1' data='$PORTB.1' />
+					<value target='pin2' data='$PORTB.2' />
+					<value target='pin3' data='$PORTB.3' />
+					<value target='pin4' data='$PORTB.4' />
+					<value target='pin5' data='$PORTB.5' />
+					<value target='pin6' data='$PORTB.6' />
+					<value target='pin7' data='$PORTB.7' />
+					<value target='common_pin' data='$PORTA.0' />
+					<value target='FGColor' data='255' />
+					<value target='BGColor' data='1973790' />
+					<value target='LabelColor' data='16777215' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='ref' guid='7fdaec78-394e-4ec9-a578-4f1a12a12076' vmin='1' vmaj='1' codename='led_5mm_clip1' x='8' y='6' z='-1' xsz='1' ysz='1' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='0' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='pin' data='$PORTE.0' />
+					<value target='polarity' data='001' />
+					<value target='on_color' data='15790320' />
+					<value target='show_label' data='000' />
+					<value target='label_property' data='pin' />
+					<value target='label_color' data='16777215' />
+					<value target='label_scale' data='1.000000' />
+					<value target='label_auto_scale' data='0' />
+					<value target='label_position' data='003' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='ref' guid='7fdaec78-394e-4ec9-a578-4f1a12a12076' vmin='1' vmaj='1' codename='led_5mm_clip2' x='8' y='-6' z='-1' xsz='1' ysz='1' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='0' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='pin' data='$PORTE.1' />
+					<value target='polarity' data='001' />
+					<value target='on_color' data='15790320' />
+					<value target='show_label' data='000' />
+					<value target='label_property' data='pin' />
+					<value target='label_color' data='16777215' />
+					<value target='label_scale' data='1.000000' />
+					<value target='label_auto_scale' data='0' />
+					<value target='label_position' data='003' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='shape' codename='back' x='0' y='0' z='2' xsz='40' ysz='27' zsz='5' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='0' layer='0' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='Shape' data='0' />
+					<value target='Color' data='8882055' />
+					<value target='Outline' data='0' />
+					<value target='Thickness' data='0' />
+					<value target='Image' data='' />
+					<value target='Model' data='' />
+					<value target='Unit' data='' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='shape' codename='shape1' x='8' y='8' z='3' xsz='9' ysz='9' zsz='4' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='0' layer='0' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='Shape' data='9' />
+					<value target='Color' data='12632256' />
+					<value target='Outline' data='1973790' />
+					<value target='Thickness' data='0' />
+					<value target='Image' data='' />
+					<value target='Model' data='' />
+					<value target='Unit' data='' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='shape' codename='shape2' x='8' y='-7.5' z='3.23694' xsz='9' ysz='9' zsz='4' xang='0' yang='0' zang='180' xquat='0' yquat='0' zquat='1' wquat='6.12323e-017' visible='1' interactive='1' solid='0' layer='0' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='Shape' data='9' />
+					<value target='Color' data='12632256' />
+					<value target='Outline' data='2960685' />
+					<value target='Thickness' data='0' />
+					<value target='Image' data='' />
+					<value target='Model' data='' />
+					<value target='Unit' data='' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+		</component>
+	</components>
+	<keymap />
+	<panel2d shadows='0' lighting='2' brightness='0' perspective='0' >
+		<background rgb='9737364' img='' style='0' />
+		<camera xe='0' ye='0' ze='300' xt='0' yt='0' zt='0' xquat='0' yquat='0' zquat='0' wquat='1' />
+	</panel2d>
+	<panel3d shadows='0' lighting='2' brightness='0' perspective='0' >
+		<background rgb='8409120' img='' style='0' />
+		<table rgb='7884836' img='' style='0' size='26' />
+		<camera xe='0' ye='-14.4879' ze='66.3842' xt='0' yt='0' zt='0' xquat='-0.10723' yquat='0' zquat='0' wquat='0.994234' />
+	</panel3d>
+	<layout >
+		<view type='0' name='landing_display' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAzQIAAEMCAAA' zoom='45' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='Main' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAzQIAAEMCAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+	</layout>
+</document>
+</root>

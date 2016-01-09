@@ -1,0 +1,209 @@
+<root>
+<document schema='101' license='0,39726362,BCPVQ6' title='landing call one button last' description='' target='SIMULATION.SIM.SIM' >
+	<config data='' clkspd='100000000' simspd='1' usewdt='0' constif='0' />
+	<plugins >
+		<dll_dbg_icd enabled='0' >
+			<data name='debug' value='1' />
+			<data name='userpins' value='0' />
+			<data name='speed' value='0' />
+			<data name='usev9' value='0' />
+			<data name='breaks' value='8' />
+			<data name='stacks' value='8' />
+			<data name='clkport' value='1' />
+			<data name='clkbit' value='6' />
+			<data name='dataport' value='1' />
+			<data name='databit' value='7' />
+			<data name='ghostype' value='0' />
+			<data name='monitor' value='1' />
+			<data name='ictloop' value='0' />
+			<data name='ictrate' value='20000' />
+			<data name='ictmask' value='0' />
+			<data name='anlpres' value='255' />
+			<data name='digmask1' value='-1' />
+			<data name='digmask2' value='-1' />
+		</dll_dbg_icd>
+		<dll_models enabled='1' />
+		<dll_upgrader enabled='1' />
+		<dll_webhelp enabled='1' />
+	</plugins>
+	<supplement use='0' head='' body='' />
+	<debug />
+	<components >
+		<settings autoimg='1' center='1' unitscale='0' fixedscale='0' fixedx='1' fixedy='1' fixedz='1' headcode='0' />
+		<definition guid='6557efed-8266-480b-9849-6fb5b8b206599909' vstate='40' vmin='0' vmaj='1' srcleaf='' visiblename='landing call one button last (elevator)' description='' category='Inputs' catenable='1' author='Seifelhak Awainia' manuname='' manucode='' sysinfo='0' keywords='' dynamic='0' iconpath='' />
+		<component class_type='root' codename='landing_call_one_button_last' x='0' y='0' z='0' xsz='1' ysz='1' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='0' poslock='0' varnames='$(type)_$(module)__$(variable:u)' >
+			<resources />
+			<properties />
+			<values />
+			<events />
+			<apis >
+				<api name='landing_call' alt='landing_call' type='1' proto='1' />
+			</apis>
+			<variables >
+				<variable public='0' >
+					<def class_type='variable' name='false' type='b1' description='' isconst='1' isinit='1' usrinit='0' setinit='0' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='focus' type='u8' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='ret' type='u8' description='' isconst='0' isinit='1' usrinit='0' setinit='0' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='car_present' type='b1' description='' isconst='0' isinit='1' usrinit='0' setinit='false' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='true' type='b1' description='' isconst='1' isinit='1' usrinit='1' setinit='1' />
+				</variable>
+			</variables>
+			<macros >
+				<macro >
+					<flowline name='landing_call' description='' >
+						<return name='Return' type='u8' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<param name='reste' type='b1' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<local name='button_state' type='u8' description='' isconst='0' isinit='1' usrinit='0' setinit='0' />
+						<local name='call' type='u8' description='' isconst='0' isinit='1' usrinit='0' setinit='0' />
+						<local name='LED_up_state' type='b1' description='' isconst='0' isinit='1' usrinit='0' setinit='false' />
+						<command class_type='decision' title='Decision' exp='.reste = true' swap='0' >
+							<flowline >
+								<command class_type='call' title='Call Component Macro' component='led_5mm_clip1' macro='TurnOff' />
+								<command class_type='comment' title='' comment='turn off the LED when the elevator come' textarea='46,25,46,25' />
+								<command class_type='calculation' title='Calculation' >
+									<exp exp='.call = 0' />
+								</command>
+								<command class_type='comment' title='' comment='the idle state' textarea='12,0,12,0' />
+							</flowline>
+							<flowline >
+								<command class_type='call' title='Call Component Macro' component='pcb_switch1' macro='ReadState' >
+									<return exp='.button_state' />
+								</command>
+								<command class_type='decision' title='Decision' exp='.button_state' swap='0' >
+									<flowline >
+										<command class_type='call' title='Call Component Macro' component='led_5mm_clip1' macro='TurnOn' />
+										<command class_type='calculation' title='Calculation' >
+											<exp exp='.call = 1' />
+										</command>
+										<command class_type='comment' title='' comment='the &quot;car_present&quot; parameter is used to
+turn the LED off when the elevator come
+to the floor' textarea='156,180,156,180' />
+									</flowline>
+									<flowline />
+								</command>
+							</flowline>
+						</command>
+						<command class_type='calculation' title='Calculation' >
+							<exp exp='.Return = .call' />
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='Main' description='' >
+						<command class_type='loop' title='Loop' type='0' exp='1' >
+							<flowline >
+								<command class_type='sim' title='Simulation' ccode='// Simulation
+// Simulation:
+' macro='Mouse.GetButtons' >
+									<return exp='focus' />
+								</command>
+								<command class_type='comment' title='' comment='simulation of the &quot;car_present&quot; variable,
+ by a right click we determine if the core
+ has came to toggle the call LED OFF' textarea='12,0,12,0' />
+								<command class_type='decision' title='Decision' exp='focus = 1' swap='0' >
+									<flowline >
+										<command class_type='calculation' title='Calculation' >
+											<exp exp='car_present = true' />
+										</command>
+										<command class_type='comment' title='' comment='Comment' textarea='12,0,12,0' />
+									</flowline>
+									<flowline >
+										<command class_type='comment' title='' comment='the right click of the mouse 
+is monitored by the variable 
+&quot;focus&quot; if the there is a
+ right click ===&gt; focus =1' textarea='12,0,12,0' />
+									</flowline>
+								</command>
+								<command class_type='call' title='Call Macro' macro='landing_call' >
+									<return exp='ret' />
+									<argument exp='car_present' />
+								</command>
+								<command class_type='comment' title='' comment='landing_call macro is called 
+with an indication if the car 
+is present, we used the parameter 
+because it&apos;s usefull when we use
+ it like a independent component
+It will retrurn the state of the 
+buttons (1 if button one call, 2 if button two call)' textarea='12,0,12,0' />
+							</flowline>
+						</command>
+					</flowline>
+				</macro>
+			</macros>
+			<component class_type='shape' codename='shape1' x='0' y='-8' z='-1.06581e-014' xsz='56' ysz='128' zsz='7.73294' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='0' layer='0' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='Shape' data='  0' />
+					<value target='Color' data='13816530' />
+					<value target='Outline' data='9868950' />
+					<value target='Thickness' data='0.250000' />
+					<value target='Image' data='' />
+					<value target='Model' data='' />
+					<value target='Unit' data='' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='ref' guid='7fdaec78-394e-4ec9-a578-4f1a12a12076' vmin='1' vmaj='1' codename='led_5mm_clip1' x='0' y='0' z='0.0164714' xsz='1' ysz='1' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='0' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='pin' data='$PORTF.7' />
+					<value target='polarity' data='001' />
+					<value target='on_color' data='8453975' />
+					<value target='show_label' data='000' />
+					<value target='label_property' data='pin' />
+					<value target='label_color' data='16777215' />
+					<value target='label_scale' data='1.000000' />
+					<value target='label_auto_scale' data='0' />
+					<value target='label_position' data='003' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='ref' guid='fc04a65f-f03d-40c8-9f69-0d23d2daac29' vmin='1' vmaj='1' codename='pcb_switch1' x='0' y='0' z='-3.28353' xsz='2.10526' ysz='2' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='0' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='pin' data='$PORTG.7' />
+					<value target='polarity' data='000' />
+					<value target='debounce' data='' />
+					<value target='operation' data='000' />
+					<value target='color' data='6908265' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+		</component>
+	</components>
+	<keymap />
+	<panel2d shadows='0' lighting='2' brightness='0' perspective='0' >
+		<background rgb='9737364' img='' style='0' />
+		<camera xe='62' ye='-4' ze='300' xt='62' yt='-4' zt='0' xquat='0' yquat='0' zquat='0' wquat='1' />
+	</panel2d>
+	<panel3d shadows='0' lighting='2' brightness='0' perspective='0' >
+		<background rgb='8409120' img='' style='0' />
+		<table rgb='7884836' img='' style='0' size='26' />
+		<camera xe='0' ye='0' ze='210.049' xt='0' yt='0' zt='0' xquat='0' yquat='0' zquat='0' wquat='1' />
+	</panel3d>
+	<layout >
+		<view type='0' name='Main' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAzQIAAEMCAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='landing_call' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAzQIAAEMCAAA' zoom='60' scrollx='0' scrolly='0' flags='0' />
+	</layout>
+</document>
+</root>

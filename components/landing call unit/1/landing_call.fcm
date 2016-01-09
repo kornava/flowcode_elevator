@@ -1,0 +1,82 @@
+<root>
+<file schema='101' />
+<macros >
+<macro >
+<flowline name='landing_call' description='' >
+<return name='Return' type='u8' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+<param name='car_present' type='b1' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+<local name='button_up_state' type='u8' description='' isconst='0' isinit='1' usrinit='0' setinit='0' />
+<local name='button_down_state' type='u8' description='' isconst='0' isinit='1' usrinit='0' setinit='0' />
+<local name='call' type='u8' description='' isconst='0' isinit='1' usrinit='0' setinit='0' />
+<local name='LED_up_state' type='b1' description='' isconst='0' isinit='1' usrinit='0' setinit='false' />
+<local name='LED_down_state' type='b1' description='' isconst='0' isinit='1' usrinit='0' setinit='false' />
+<command class_type='call' title='Call Component Macro' component='pcb_switch1' macro='ReadState' >
+<return exp='.button_up_state' />
+</command>
+<command class_type='call' title='Call Component Macro' component='pcb_switch2' macro='ReadState' >
+<return exp='.button_down_state' />
+</command>
+<command class_type='input' title='Input' mode='1' port='1048576' mask='1' exp='.LED_up_state' />
+<command class_type='input' title='Input' mode='1' port='1048576' mask='2' exp='.LED_down_state' />
+<command class_type='comment' title='' comment='save the LEDs states into variables
+to prevent the turn ON of a LED when the
+other one is already ON' textarea='199,7,199,7' />
+<command class_type='decision' title='Decision' exp='.button_up_state = true AND .LED_down_state = false AND car_present = false' swap='0' >
+<flowline >
+<command class_type='comment' title='' comment='the &quot;car_present&quot; parameter is used to
+turn the LED off when the elevator come
+to the floor' textarea='99,-37,99,-37' />
+<command class_type='call' title='Call Component Macro' component='led_5mm_clip1' macro='TurnOn' />
+<command class_type='calculation' title='Calculation' >
+<exp exp='.call = 1' />
+</command>
+</flowline>
+<flowline >
+<command class_type='decision' title='Decision' textarea='36,10,36,10' exp='.button_down_state = true AND .LED_up_state = false AND car_present = false' swap='0' >
+<flowline >
+<command class_type='call' title='Call Component Macro' component='led_5mm_clip2' macro='TurnOn' />
+<command class_type='calculation' title='Calculation' >
+<exp exp='.call = 2' />
+</command>
+<command class_type='comment' title='' comment='The local variable &quot;call&quot; is used as the Return
+of this macro
+it contain the state of the landing call unit
+
+1 ==&gt; if the up button has been pressed
+2 ==&gt; if the down button has been pressed
+0 ==&gt; if no button has been pressed' textarea='12,0,12,0' />
+</flowline>
+<flowline />
+</command>
+</flowline>
+</command>
+<command class_type='decision' title='Decision' exp='car_present = true' swap='0' >
+<flowline >
+<command class_type='call' title='Call Component Macro' component='led_5mm_clip1' macro='TurnOff' />
+<command class_type='call' title='Call Component Macro' component='led_5mm_clip2' macro='TurnOff' />
+<command class_type='comment' title='' comment='turn off the LED when the elevator come' textarea='46,25,46,25' />
+<command class_type='calculation' title='Calculation' >
+<exp exp='.call = 0' />
+</command>
+<command class_type='comment' title='' comment='the idle state' textarea='12,0,12,0' />
+</flowline>
+<flowline />
+</command>
+<command class_type='calculation' title='Calculation' >
+<exp exp='.Return = .call' />
+</command>
+</flowline>
+</macro>
+</macros>
+<variables >
+<variable public='0' >
+<def class_type='variable' name='false' type='b1' description='' isconst='1' isinit='1' usrinit='0' setinit='0' />
+</variable>
+<variable public='1' >
+<def class_type='variable' name='car_present' type='b1' description='' isconst='0' isinit='1' usrinit='0' setinit='false' />
+</variable>
+<variable public='0' >
+<def class_type='variable' name='true' type='b1' description='' isconst='1' isinit='1' usrinit='1' setinit='1' />
+</variable>
+</variables>
+</root>
